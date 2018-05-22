@@ -1,0 +1,31 @@
+@import "variables.scss";
+@import "new-task.scss";
+@import "tasks-list.scss";
+* {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+    background: $void;
+    color: $stark;
+}
+
+li {
+    list-style: none;
+}
+
+.wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.container {
+    text-align: center;
+}
+
+.title {
+    background-color: darken($fuschia, 30);
+    margin: 0;
+    padding: 1.5rem 0;
+}

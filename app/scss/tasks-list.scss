@@ -1,0 +1,43 @@
+.container-tasks {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    background-color: $jewel;
+}
+
+.tasks {
+    margin: 0; // padding: 0.3rem
+    padding: 0;
+}
+
+.task {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 1rem; // padding-top: 0.3rem;
+    border-bottom: 1px solid $void;
+}
+
+.task:first-child {
+    border-top: 1px solid $void;
+}
+
+.task:hover {
+    background-color: darken($jewel, 30);
+    cursor: pointer;
+}
+
+.checked {
+    color: $light-grey;
+    background-color: darkslategrey;
+}
+
+.checked:hover {
+    color: $light-grey;
+    background-color: darkslategrey;
+}
+
+.closeTask {
+    background-color: transparent;
+    color: inherit;
+    border: none;
+}
