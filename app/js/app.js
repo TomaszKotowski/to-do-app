@@ -1,22 +1,16 @@
 /* main js file */
-const tasksList = [
-    'Do something',
-    'Nothing shall be done',
-    'No is the time'
-];
-console.log(JSON.stringify(tasksList))
-localStorage.setItem('tasks', JSON.stringify(tasksList));
-console.log(localStorage)
-
-document.querySelector('[data-js=addNewTask]')
-    .addEventListener('click', (e) => {
-        e.preventDefault();
-    });
-//Creates the task list based on the value in the taskList array
-const handleTaskList = (tasksList) => {
+// localStorage.clear();
+let tasksList = ["First task", "Second task"];
+// IIFE to check the state of the storage
+(() => {
+    const json = localStorage.getItem('tasks');
+    const tasks = JSON.parse(json);
+    if (tasks) { tasksList = [...tasks]; }
+})();
+//IIFE that creates the task list based on the value in the taskList array
+((tasksList) => {
     const tasks = document.querySelector('[data-js=tasks]');
     for (let task of tasksList) {
-        console.log(task)
         let taskItem = document.createElement('li');
         taskItem.dataset.js = 'task';
         taskItem.className = 'task';
@@ -27,23 +21,15 @@ const handleTaskList = (tasksList) => {
         closeButton.className = 'closeTask';
         closeButton.innerHTML = 'X';
 
-        taskItem.appendChild(closeButton);       // return newTaskItem
+        taskItem.appendChild(closeButton);
         tasks.appendChild(taskItem);
     }
-}
-handleTaskList(tasksList)
+})(tasksList)
 
-// let task = document.querySelectorAll('[data-js=task]');
-const handleCloseTask = () => {
-    let closeButton = document.querySelectorAll('[data-js=closeTask]');
-    for (let i = 0; i < closeButton.length; i++) {
-        closeButton[i].addEventListener('click', () => {
-            closeButton[i].parentElement.remove();
-        });
-    }
-};
-
-handleCloseTask();
+document.querySelector('[data-js=addNewTask]')
+    .addEventListener('click', (e) => {
+        e.preventDefault();
+    });
 
 const createNewTaskItem = (newTask) => {
     let newTaskItem = document.createElement('li');
@@ -63,17 +49,29 @@ const createNewTaskItem = (newTask) => {
 const handleAddNewTaskItem = () => {
     const newTask = document.querySelector('[data-js=newTask]');
     const tasks = document.querySelector('[data-js=tasks]');
-    tasks.appendChild(createNewTaskItem(newTask.value));
-    newTask.value = '';
+    if ((newTask.value.trim()) == '') {
+        alert('Wpisz poprawny task');
+    } else {
+        tasksList.push(newTask.value);
+        localStorage.setItem('tasks', JSON.stringify(tasksList));
+        tasks.appendChild(createNewTaskItem(newTask.value));
+        newTask.value = '';
+    }
 };
 
-document.querySelector('[data-js=addTask]')
-    .addEventListener('click', () => {
-        handleAddNewTaskItem();
-        handleCloseTask();
-        handleCheckTask()
-    });
+const handleCloseTask = () => {
+    let closeButton = document.querySelectorAll('[data-js=closeTask]');
+    for (let i = 0; i < closeButton.length; i++) {
+        closeButton[i].addEventListener('click', () => {
+            tasksList.splice(i, 1);
+            localStorage.setItem('tasks', JSON.stringify(tasksList));
+            closeButton[i].parentElement.remove();
+        });
+    }
+};
+handleCloseTask();
 
+// Change to iife - later
 const handleCheckTask = () => {
     const task = document.querySelectorAll('[data-js=task]');
     task.forEach(task => {
@@ -82,4 +80,11 @@ const handleCheckTask = () => {
         });
     });
 };
-handleCheckTask()
+handleCheckTask();
+
+document.querySelector('[data-js=addTask]')
+    .addEventListener('click', () => {
+        handleAddNewTaskItem();
+        handleCloseTask();
+        handleCheckTask()
+    });

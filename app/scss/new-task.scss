@@ -1,8 +1,12 @@
+.container-new-task {
+    margin: 1rem auto;
+}
+
 .addNewTask {
     padding: 1rem 0;
     display: flex;
     justify-content: space-between;
-    background-color: darken($fuschia, 20);
+    background-color: darken($fuschia, 10);
 }
 
 .newTask {
@@ -11,6 +15,10 @@
 }
 
 .addTask {
+    height: 2rem;
     width: 15%;
     margin: 0 1rem;
+    padding: 0;
+    font-weight: bold;
+    font-size:16px;
 }
