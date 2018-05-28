@@ -1,3 +1,8 @@
+# simple to-do list
+
+A simple to-do list. The project was made based on the frontendkickstarter from Maciej Korsan. His frontendkickstarter:
+https://github.com/maciejkorsan/frontendkickstarter
+
 # frontendkickstarter
 
 requirements:
